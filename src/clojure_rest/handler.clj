@@ -2,12 +2,13 @@
   (:use compojure.core)
   (:use cheshire.core)
   (:use ring.util.response)
+  (:use clojure-rest.calculate)
   (:require [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             [clojure.java.jdbc :as sql]
             [compojure.route :as route]))
 
-(defn getInstallment [id] (response {:status 200 :id id}) )
+(defn getInstallment [id] (response {:status 200 :id id :calc (calculate 1 2)}) )
 
 (defn createInstallment [installment] ({:status 200
                                         :message "Created"}))
