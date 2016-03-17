@@ -1,8 +1,8 @@
-(ns clojure-rest.handler
+(ns bivatest.apiHandler
   (:use compojure.core)
   (:use cheshire.core)
   (:use ring.util.response)
-  (:use clojure-rest.calculate)
+  (:use bivatest.calculate)
   (:require [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             [clojure.java.jdbc :as sql]
@@ -10,8 +10,14 @@
 
 (defn getInstallment [id] (response {:status 200 :id id :calc (calculate 1 2)}) )
 
-(defn createInstallment [installment] ({:status 200
-                                        :message "Created"}))
+(defn createInstallment [installment]
+  (let
+    [value   (get installment :present_value 0)
+     number (get installment :number_of_installments)
+     rate (get installment :monthly_interest_rate)]
+    (response {:present_value value
+               :number_of_installments number
+               :monthly_interest_rate rate})))
 
 (defn deleteInstallment [id] (response {:status 200
                                         :message (str "Deleted: " id)}))
@@ -29,5 +35,5 @@
 
 (def app
   (-> (handler/api appRoutes)
-      (middleware/wrap-json-body)
+      (middleware/wrap-json-body {:keywords? true})
       (middleware/wrap-json-response)))
