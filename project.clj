@@ -10,6 +10,7 @@
                  [com.h2database/h2 "1.3.168"]
                  [cheshire "4.0.3"]
                  [com.datomic/datomic-free "0.9.5350"]]
+
   :plugins [[lein-ring "0.7.3"]
             [lein-datomic "0.2.0"]]
   :ring {:handler bivatest.apiHandler/app}

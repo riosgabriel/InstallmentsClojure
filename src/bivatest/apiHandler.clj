@@ -3,12 +3,13 @@
   (:use cheshire.core)
   (:use ring.util.response)
   (:use bivatest.calculate)
+  (:use bivatest.queries)
   (:require [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             [clojure.java.jdbc :as sql]
             [compojure.route :as route]))
 
-(defn getInstallment [id] (response {:status 200 :id id :calc (calculate 1 2)}) )
+(defn getInstallment [id] (response (select-by-present_value id)))
 
 (defn createInstallment [installment]
   (let
@@ -22,7 +23,7 @@
 (defn deleteInstallment [id] (response {:status 200
                                         :message (str "Deleted: " id)}))
 
-(defroutes appRoutes
+(defroutes app-routes
            (context "/installment" [] (defroutes installment-routes
                ;body é provido pelo wrap-json-body do middleware
                (POST "/" {body :body} (createInstallment body))
@@ -34,6 +35,6 @@
            (route/not-found "Not Found"))
 
 (def app
-  (-> (handler/api appRoutes)
+  (-> (handler/site app-routes)
       (middleware/wrap-json-body {:keywords? true})
-      (middleware/wrap-json-response)))
+      middleware/wrap-json-response))

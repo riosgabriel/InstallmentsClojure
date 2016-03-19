@@ -1,10 +1,10 @@
 [
  ;; ----- Installment type -----
  {:db/id #db/id[:db.part/db]
-  :db/ident :installment/id
+  :db/ident :installment/uuid
   :db/valueType :db.type/uuid
   :db/cardinality :db.cardinality/one
-  :db/doc "installment value"
+  :db/doc "uuid"
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id[:db.part/db]
