@@ -6,4 +6,3 @@
 
 (defn calculatePrice [pv i n]
   (* (/ (* (** (+ 1 i) n) i) (- (** (+ 1 i) n) 1)) pv))
-
