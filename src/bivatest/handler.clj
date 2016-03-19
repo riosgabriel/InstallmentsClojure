@@ -1,4 +1,4 @@
-(ns bivatest.apiHandler
+(ns bivatest.handler
   (:use compojure.core)
   (:use cheshire.core)
   (:use ring.util.response)

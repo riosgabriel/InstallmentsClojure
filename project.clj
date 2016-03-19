@@ -2,20 +2,20 @@
   :description "REST service for documents"
   :url "http://github.com/riosgabriel"
   :main bivatest.main
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [compojure "1.1.1"]
-                 [ring/ring-json "0.1.2"]
-                 [c3p0/c3p0 "0.9.1.2"]
-                 [org.clojure/java.jdbc "0.2.3"]
-                 [com.h2database/h2 "1.3.168"]
-                 [cheshire "4.0.3"]
-                 [com.datomic/datomic-free "0.9.5350"]]
-  :plugins [[lein-ring "0.7.3"]
-            [lein-datomic "0.2.0"]]
-  :ring {:handler bivatest.apiHandler/app}
+
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [ring/ring-core "1.2.1"]
+                 [ring/ring-jetty-adapter "1.2.1"]
+                 [compojure "1.1.6"]
+                 [cheshire "5.3.1"]
+                 [ring/ring-json "0.2.0"]
+                 [korma "0.4.0"]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]]
+
+  :plugins [[lein-ring "0.8.10"]
+            [ragtime/ragtime.lein "0.3.6"]]
   :profiles {:dev
-             {:datomic {:config "resources/transactor.properties"
-                        :db-uri "datomic:free://localhost:4334/biva-db"
-                        :install-location "/home/gabriel/datomic/datomic-free-0.9.5350"}}}
-  :datomic {:schemas ["resources" ["schema.edn"]]}
+             {:dependencies [[javax.servlet/servlet-api "2.5"]
+                             [ring-mock "0.1.5"]]}}
+  :ring {:handler bivatest.handler/app}
 )
