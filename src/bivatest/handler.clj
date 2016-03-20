@@ -2,25 +2,32 @@
   (:use compojure.core)
   (:use cheshire.core)
   (:use ring.util.response)
-  (:use bivatest.calculate)
+  (:use bivatest.entities)
   (:require [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
-            [clojure.java.jdbc :as sql]
             [compojure.route :as route]))
 
-(defn getInstallment [id] (response {:status 200 :id id :calc (calculate 1 2)}) )
+(defn >0 [n] (n > 0))
+
+(defn apply-or-error [value pred err]
+  (if (pred value) value err))
+
+(defn getInstallment [id] (let [result (select-by-id id)]
+                            (cond
+                              (empty? result) {:status 404}
+                              :else (response result))))
 
 (defn createInstallment [installment]
   (let
-    [value   (get installment :present_value 0)
-     number (get installment :number_of_installments)
-     rate (get installment :monthly_interest_rate)]
-    (response {:present_value value
-               :number_of_installments number
-               :monthly_interest_rate rate})))
+    [present (apply-or-error (get installment :present_value 1) >0 "abc")
+     number (get installment :number_of_installments 1)
+     rate (get installment :monthly_interest_rate 1)]
+    (response (select-keys (add present rate number)  [:installment_value :id]))))
 
-(defn deleteInstallment [id] (response {:status 200
-                                        :message (str "Deleted: " id)}))
+(defn deleteInstallment [id] (let [result (delete-by-id id)]
+                               (cond
+                                 (empty? result) {:status 404}
+                                  :else {:status 204})))
 
 (defroutes appRoutes
            (context "/installment" [] (defroutes installment-routes
