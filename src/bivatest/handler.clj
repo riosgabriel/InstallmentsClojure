@@ -15,16 +15,16 @@
 (defn bad-request [message] {:status 400
                      :body message})
 
-(defn is-valid? [n] (if (or (<= n 0) (nil? n)) true) false)
+(defn is-valid-param? [n] (and (not (nil? n)) (> n 0)))
 
 (defn createInstallment [installment]
   (let
-    [present (get installment :present_value 0)
-     number (get installment :number_of_installments 0)
-     rate (get installment :monthly_interest_rate 0.01)]
-    (if (is-valid? rate)
-      (bad-request "monthly_interest_rate must be grater than zero")
-      (if (is-valid? number)
+    [present (get installment :present_value)
+     number (get installment :number_of_installments)
+     rate (get installment :monthly_interest_rate)]
+     (if (not (is-valid-param? rate))
+       (bad-request "monthly_interest_rate must be grater than zero")
+       (if (not (is-valid-param? number))
         (bad-request "number_of_installments must be grater than zero")
         (response (select-keys (add present rate number)  [:installment_value :id]))))))
 
