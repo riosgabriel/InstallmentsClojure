@@ -7,22 +7,26 @@
             [ring.middleware.json :as middleware]
             [compojure.route :as route]))
 
-(defn >0 [n] (n > 0))
-
-(defn apply-or-error [value pred err]
-  (if (pred value) value err))
-
 (defn getInstallment [id] (let [result (select-by-id id)]
                             (cond
                               (empty? result) {:status 404}
                               :else (response result))))
 
+(defn bad-request [message] {:status 400
+                     :body message})
+
+(defn is-valid? [n] (if (or (<= n 0) (nil? n)) true) false)
+
 (defn createInstallment [installment]
   (let
-    [present (apply-or-error (get installment :present_value 1) >0 "abc")
-     number (get installment :number_of_installments 1)
-     rate (get installment :monthly_interest_rate 1)]
-    (response (select-keys (add present rate number)  [:installment_value :id]))))
+    [present (get installment :present_value 0)
+     number (get installment :number_of_installments 0)
+     rate (get installment :monthly_interest_rate 0.01)]
+    (if (is-valid? rate)
+      (bad-request "monthly_interest_rate must be grater than zero")
+      (if (is-valid? number)
+        (bad-request "number_of_installments must be grater than zero")
+        (response (select-keys (add present rate number)  [:installment_value :id]))))))
 
 (defn deleteInstallment [id] (let [result (delete-by-id id)]
                                (cond

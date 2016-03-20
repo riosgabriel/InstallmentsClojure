@@ -10,8 +10,7 @@
                  [cheshire "5.3.1"]
                  [ring/ring-json "0.2.0"]
                  [korma "0.4.0"]
-                 [org.postgresql/postgresql "9.2-1002-jdbc4"]
-                 [com.novemberain/validateur "2.5.0"]]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]]
 
   :plugins [[lein-ring "0.8.10"]
             [ragtime/ragtime.lein "0.3.6"]]
@@ -19,4 +18,4 @@
              {:dependencies [[javax.servlet/servlet-api "2.5"]
                              [ring-mock "0.1.5"]]}}
   :ring {:handler bivatest.handler/app}
-)
+  )
