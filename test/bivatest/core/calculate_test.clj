@@ -1,6 +1,6 @@
 (ns bivatest.core.calculate-test
   (:require [clojure.test :refer :all]
-            [bivatest.core.calculate :refer :all]))
+            [bivatest.core.calculation :refer :all]))
 
 (deftest calc-price
   (testing "calculate price"

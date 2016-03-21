@@ -17,11 +17,16 @@
   :plugins [[lein-ring "0.8.10"]
             [ragtime/ragtime.lein "0.3.6"]
             [lein-environ "1.0.2"]]
-  :profiles {:dev
-             {:env {:database-url "//localhost:5432/biva-db"
-                    :database-user "gabriel"
-                    :database-password "rios"}
-              :dependencies [[javax.servlet/servlet-api "2.5"]
-                             [ring-mock "0.1.5"]]}}
+  :profiles { :dev
+               {:env {:database-url "//localhost:5432/biva-db"
+                      :database-user "gabriel"
+                      :database-password "rios"}
+                :dependencies [[javax.servlet/servlet-api "2.5"]
+                               [ring-mock "0.1.5"]]}
+              :prod
+                {:env {:database-url "//localhost:5432/biva-db"
+                       :database-user "gabriel"
+                       :database-password "rios"}}
+             }
   :ring {:handler bivatest.api.handler/app}
   )
