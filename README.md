@@ -1,19 +1,16 @@
-# clojure-rest
+## biva-clojure-test
 
-FIXME
+# Prerequisites
 
-## Prerequisites
+You will need
 
-You will need [Leiningen][] 2.0.0 or above installed.
+- [Leiningen][] 2.0.0 or above.
+- PostgreSQL 9.2 or above.
 
 [leiningen]: https://github.com/technomancy/leiningen
 
-## Running
+# Running
 
 To start a web server for the application, run:
 
-    lein ring server
-
-## License
-
-Copyright © 2016 FIXME
+    lein ring server-headless
