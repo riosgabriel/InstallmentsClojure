@@ -37,6 +37,11 @@
                              ))]
       (is (= (:body response) installment-zeroed-message)))
 
+  (testing "delete route"
+  (let [response (app (mock/request :delete "/installment/de305d54-75b4-431b-adb2-eb6b9e546014"))]
+    (is (= (:status response) 404))
+    (is (= (get-in response [:headers "Content-Type"]) "application/json"))))
+
   (testing "not-found route"
     (let [response (app (mock/request :get "/not-found"))]
       (is (= (:status response) 404))))

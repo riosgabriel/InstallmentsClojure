@@ -7,17 +7,18 @@
             [ring.middleware.json :as middleware]
             [compojure.route :as route]))
 
-(defn getInstallment [id] (let [result (select-by-id id)]
-                            (cond
-                              (empty? result) {:status 404
-                                               :headers {"Content-Type" "application/json"}}
-                              :else (response result))))
-
 (defn bad-request [message] {:status 400
                              :body {:message message}
                              :headers {"Content-Type" "application/json"}})
 
 (defn is-valid-param? [n] (and (not (nil? n)) (> n 0)))
+
+
+(defn getInstallment [id] (let [result (select-by-id id)]
+                            (cond
+                              (empty? result) {:status 404
+                                               :headers {"Content-Type" "application/json"}}
+                              :else (response result))))
 
 (defn createInstallment [installment]
   (let
