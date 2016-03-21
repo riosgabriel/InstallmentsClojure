@@ -1,8 +1,8 @@
-(ns bivatest.handler
+(ns bivatest.api.handler
   (:use compojure.core)
   (:use cheshire.core)
   (:use ring.util.response)
-  (:use bivatest.entities)
+  (:use bivatest.model.entities)
   (:require [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             [compojure.route :as route]))

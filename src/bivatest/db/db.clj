@@ -1,4 +1,4 @@
-(ns bivatest.db)
+(ns bivatest.db.db)
 (use 'korma.db)
 (require '[environ.core :refer [env]])
 

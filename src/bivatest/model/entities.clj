@@ -1,6 +1,7 @@
-(ns bivatest.entities
-  (:use korma.core  bivatest.db
-   :use bivatest.calculate))
+(ns bivatest.model.entities
+  (:use korma.core
+   :use bivatest.db.db
+   :use bivatest.core.calculate))
 
 (declare installment)
 

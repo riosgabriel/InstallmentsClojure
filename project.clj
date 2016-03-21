@@ -23,5 +23,5 @@
                     :database-password "rios"}
               :dependencies [[javax.servlet/servlet-api "2.5"]
                              [ring-mock "0.1.5"]]}}
-  :ring {:handler bivatest.handler/app}
+  :ring {:handler bivatest.api.handler/app}
   )

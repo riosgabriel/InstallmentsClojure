@@ -1,8 +1,8 @@
-(ns bivatest.handler-test
+(ns bivatest.api.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
             [clojure.data.json :as json]
-            [bivatest.handler :refer :all]))
+            [bivatest.api.handler :refer :all]))
 
 (def rate-zeroed-message "{\"message\":\"monthly_interest_rate must be grater than zero\"}")
 (def installment-zeroed-message "{\"message\":\"number_of_installments must be grater than zero\"}")

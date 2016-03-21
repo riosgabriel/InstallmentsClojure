@@ -1,5 +1,5 @@
-(ns bivatest.queries
-    (:use bivatest.db))
+(ns bivatest.model.queries
+    (:use bivatest.db.db))
 (use '[datomic.api :only [q db] :as d])
 
 (defn select-all [](d/q '[:find ?e

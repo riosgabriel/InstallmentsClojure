@@ -1,4 +1,4 @@
-(ns bivatest.calculate)
+(ns bivatest.core.calculate)
 
 (defn ^:dynamic ** [x n] (reduce * (repeat n x)))
 
