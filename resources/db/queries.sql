@@ -1,4 +1,4 @@
-DROP TABLE installments;
+DROP TABLE INSTALLMENTS;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS INSTALLMENTS (
    monthly_interest_rate NUMERIC NOT NULL,
    installment_value NUMERIC NOT NULL);
 
-INSERT INTO installments (id, present_value, number_of_installments, monthly_interest_rate, installment_value)
+INSERT INTO INSTALLMENTS (id, present_value, number_of_installments, monthly_interest_rate, installment_value)
     VALUES (uuid_generate_v4(), :?, :?, :?, :?);
 
